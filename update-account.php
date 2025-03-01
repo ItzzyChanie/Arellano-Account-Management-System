@@ -9,11 +9,15 @@ if (isset($_GET['username'])) {
     $sql = "SELECT * FROM tblaccounts WHERE username = ?";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $username);
+
         if (mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
+
             if (mysqli_num_rows($result) == 1) {
                 $account = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            } else {
+
+            } else 
+            {
                 echo "<div class='alert alert-danger'>Account not found.</div>";
                 header("location: accounts-management.php");
                 exit();
@@ -21,7 +25,8 @@ if (isset($_GET['username'])) {
         } else {
             echo "<div class='alert alert-danger'>ERROR on fetching account details.</div>";
         }
-    } else {
+    } else 
+    {
         echo "<div class='alert alert-danger'>ERROR on preparing fetch statement.</div>";
     }
 } else {
@@ -33,16 +38,22 @@ if (isset($_GET['username'])) {
 if (isset($_POST['btnsubmit'])) {
     // Update account details
     $sql = "UPDATE tblaccounts SET password = ?, usertype = ?, status = ? WHERE username = ?";
+
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "ssss", $_POST['txtpassword'], $_POST['cmbtype'], $_POST['cmbstatus'], $username);
-        if (mysqli_stmt_execute($stmt)) {
+        
+        if (mysqli_stmt_execute($stmt)) 
+        {
             echo "<div class='alert alert-success'>Account updated successfully.</div>";
             header("location: accounts-management.php");
             exit();
-        } else {
+
+        } else 
+        {
             echo "<div class='alert alert-danger'>ERROR on updating account.</div>";
         }
-    } else {
+    } else 
+    {
         echo "<div class='alert alert-danger'>ERROR on preparing update statement.</div>";
     }
 }
@@ -54,7 +65,9 @@ if (isset($_POST['btnsubmit'])) {
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Update Account Page - AU Technical Support Management System</title>
+
     <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel = "stylesheet">
+    
     <style>
         body {
             background-color: #f8f9fa;
