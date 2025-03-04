@@ -94,7 +94,7 @@
                     echo "<td>" . $row['datecreated'] . "</td>";
                     echo "<td>";
                     echo "<a href='update-account.php?username=" . $row['username'] . "' class='btn btn-warning btn-sm' style = 'margin-right: 5px;'>Update</a>";
-                    echo "<a href='delete-account.php?username=" . $row['username'] . "' class='btn btn-danger btn-sm'>Delete</a>";
+                    echo "<a href='#' onclick='confirmDelete(\"" . $row['username'] . "\")' class='btn btn-danger btn-sm'>Delete</a>";
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -146,6 +146,14 @@
         ?>
     </div>
 </div>
+
+<script>
+function confirmDelete(username) {
+    if (confirm("Are you sure you want to delete this account?")) {
+        window.location.href = "delete-account.php?username=" + username;
+    }
+}
+</script>
 
 <!-- Bootstrap JS (Optional) -->
 <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
