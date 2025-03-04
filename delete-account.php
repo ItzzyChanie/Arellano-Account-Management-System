@@ -45,7 +45,7 @@ if (isset($_GET['username'])) {
 </head>
 
 <body>
-    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method = "POST">
+    <form action = "<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method = "POST">
         <input type = "hidden" name = "txtusername" value = "<?php echo trim($_GET['username']) ?>">
 
         <p>Are you sure you want to delete account?</p>
