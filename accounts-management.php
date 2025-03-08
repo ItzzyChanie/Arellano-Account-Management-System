@@ -1,91 +1,188 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("location: login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
-<html lang = "en">
+<html>
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Accounts Management Page - AU Technical Support Management System</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel = "stylesheet">
-
     <style>
         body {
-            background: linear-gradient(270deg,rgba(65, 14, 233, 0.88),rgba(241, 16, 16, 0.87));
+            font-family: Arial, sans-serif;
+            background-color:rgb(213, 215, 218);
+            padding: 20px;
+            margin: 0;
+        }
+        .header {
+            background-color: #0078d4;
+            color: #ffffff;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .header .welcome-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .account-type {
+            font-size: 16px;
+        }
+        .header img {
+            height: 50px;
+            margin-right: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #0078d4;
+            color: #ffffff;
+        }
+        tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .create-btn {
+            background-color: #0078d4;
+            color: #ffffff;
+        }
+        .create-btn:hover {
+            background-color: #005bb5;
+        }
+        .logout-btn {
+            background-color:rgb(229, 66, 66);
+            color: #ffffff;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+        .update-btn {
+            background-color: #0078d4;
+            color: #ffffff;
+        }
+        .update-btn:hover {
+            background-color: #005bb5;
+        }
+        .delete-btn {
+            background-color:rgba(214, 24, 24, 0.75);
+            color: #ffffff;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 0 auto;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            width: 200px;
+        }
+        .search-container button {
+            background-color:rgb(26, 209, 16);
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-container button:hover {
+            background-color: #1a9d10;
+        }
+        .search-container button i {
+            font-size: 16px;
+        }
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .list-title {
+            font-weight: bold;
+            font-size: 25px;
+            margin-top: 80px;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            background: linear-gradient(270deg, #0078d4,rgb(127, 0, 181),rgb(236, 3, 7));
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 10s ease infinite;
         }
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .container {
-            margin-top: 20px;
-        }
-        .welcome-box {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .table-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
     </style>
 </head>
+
 <body>
-
-<?php 
-    session_start();
-    if (!isset($_SESSION['username'])) {
-        header("location: login.php");
-        exit();
-    }
-?>
-
-<div class = "container">
-    <div class = "row justify-content-center">
-        <div class = "col-md-6 welcome-box text-center">
-            <h2 class = "text-primary">Welcome, <?= $_SESSION['username'] ?>!</h2>
-            <h5 class = "text-muted">User Type: <?= $_SESSION['usertype'] ?></h5>
-            
-            <hr>
-
-            <div class = "d-flex justify-content-center gap-2">
-                <a href = "create-account.php" class = "btn btn-success">Add New Account</a>
-                <a href = "logout.php" class = "btn btn-danger">Logout</a>
-            </div>
-
-            <hr>
-            <form action = "<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method = "POST">
-                <div class = "input-group">
-                    <input type = "text" name = "txtsearch" class = "form-control" placeholder = "Search account..." required>
-                    <button type = "submit" name = "btnsearch" class = "btn btn-primary">Search</button>
-                </div>
-            </form>
+    <div class = 'header'>
+        <img src = 'picture/Arellano_University_Logo.png' alt='Logo'>
+        <div>
+            <div class = 'welcome-text'>Welcome, <?= $_SESSION['username'] ?></div>
+            <div class = 'account-type'>Account type: <?= $_SESSION['usertype'] ?></div>
+        </div>
+        <form action = '<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>' method = 'POST' class = 'search-container'>
+            <input type = 'text' name = 'txtsearch' placeholder = 'Search Account...' required>
+            <button type = 'submit' name = 'btnsearch'><i class = 'fas fa-search'></i></button>
+        </form>
+        <div class = 'actions'>
+            <a href = 'create-account.php' class = 'button create-btn icon-btn'><i class = 'fas fa-user-plus'></i> Create new account</a>
+            <a href = 'logout.php' class = 'button logout-btn icon-btn'><i class = 'fas fa-sign-out-alt'></i> Logout</a>
         </div>
     </div>
 
-    <div class = "table-container">
+    <div class = "list-title">List of Accounts</div>
+
+    <div class = "container">
         <?php
         function buildtable($result) {
-            if (mysqli_num_rows($result) > 0) 
-            {
-                echo "<table class='table table-striped mt-4'>";
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>Username</th><th>Usertype</th><th>Status</th><th>Created by</th><th>Date created</th><th>Action</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+            if (mysqli_num_rows($result) > 0) {
+                echo "<table>";
+                echo "<tr><th>Username</th><th>Usertype</th><th>Status</th><th>Created by</th><th>Date created</th><th>Action</th></tr>";
 
-                //display the data form in the result
-                while ($row = mysqli_fetch_array($result))
-                {
+                while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
                     echo "<td>" . $row['username'] . "</td>";
                     echo "<td>" . $row['usertype'] . "</td>";
@@ -93,70 +190,58 @@
                     echo "<td>" . $row['createdby'] . "</td>";
                     echo "<td>" . $row['datecreated'] . "</td>";
                     echo "<td>";
-                    echo "<a href='update-account.php?username=" . $row['username'] . "' class='btn btn-warning btn-sm' style = 'margin-right: 5px;'>Update</a>";
-                    echo "<a href='#' onclick='confirmDelete(\"" . $row['username'] . "\")' class='btn btn-danger btn-sm'>Delete</a>";
+                    echo "<a href='update-account.php?username=" . $row['username'] . "' class='button update-btn'>Update</a>";
+                    echo "<a href='#' onclick='confirmDelete(\"" . $row['username'] . "\")' class='button delete-btn'>Delete</a>";
                     echo "</td>";
                     echo "</tr>";
                 }
-                echo "</tbody>";
                 echo "</table>";
-            }
-            else 
-            {
-                echo "<p class='text-center mt-4'>No record/s found.</p>";
+            } else {
+                echo "No record/s found.";
             }
         }
-        //display table
+
         require_once "config.php";
-        //search
-        if(isset($_POST['btnsearch']))
-        {
+        if (isset($_POST['btnsearch'])) {
             $sql = "SELECT * FROM tblaccounts WHERE username LIKE ? OR usertype LIKE ? ORDER BY username";
-            if($stmt = mysqli_prepare($link, $sql))
-            {
+
+            if ($stmt = mysqli_prepare($link, $sql)) {
                 $searchvalue = '%' . $_POST['txtsearch'] . '%';
+
                 mysqli_stmt_bind_param($stmt, "ss", $searchvalue, $searchvalue);
-                if(mysqli_stmt_execute($stmt))
-                {
+
+                if (mysqli_stmt_execute($stmt)) {
                     $result = mysqli_stmt_get_result($stmt);
                     buildtable($result);
-                }
-                else
-                {
-                    echo "<p class='text-center text-danger mt-4'>ERROR on search.</p>";
+
+                } else {
+                    echo "ERROR on search.";
                 }
             }
-        }
-        else {
-            //display data
+        } else {
             $sql = "SELECT * FROM tblaccounts ORDER BY username";
-            if($stmt = mysqli_prepare($link, $sql))
-            {
-                if(mysqli_stmt_execute($stmt))
-                {
+            if ($stmt = mysqli_prepare($link, $sql)) {
+
+                if (mysqli_stmt_execute($stmt)) {
                     $result = mysqli_stmt_get_result($stmt);
                     buildtable($result);
                 }
-            }
-            else
-            {
-                echo "<p class='text-center text-danger mt-4'>ERROR on loading data.</p>";
+            } else {
+                echo "ERROR on loading data.";
             }
         }
         ?>
     </div>
-</div>
 
-<script>
-function confirmDelete(username) {
-    if (confirm("Are you sure you want to delete this account?")) {
-        window.location.href = "delete-account.php?username=" + username;
+    <script>
+    function confirmDelete(username) {
+        if (confirm("Are you sure you want to delete this account?")) {
+            window.location.href = "delete-account.php?username=" + username;
+        }
     }
-}
-</script>
+    </script>
 
-<!-- Bootstrap JS (Optional) -->
-<script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- Font Awesome JS -->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>

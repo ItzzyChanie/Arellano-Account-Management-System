@@ -60,7 +60,7 @@ if (isset($_POST['btnsubmit']))
 
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color:rgb(223, 225, 228);
         }
         .container {
             margin-top: 50px;
@@ -99,7 +99,6 @@ if (isset($_POST['btnsubmit']))
 
                     <select name = "cmbtype" id = "cmbtype" class = "form-select" required>
                         <option value = "">--Select Account Type--</option>
-                        <option value = "USER">User</option>
                         <option value = "ADMINISTRATOR">Administrator</option>
                         <option value = "TECHNICAL">Technical</option>
                         <option value = "STAFF">Staff</option>
