@@ -163,10 +163,12 @@ if (!isset($_SESSION['username'])) {
             <div class = 'welcome-text'>Welcome, <?= $_SESSION['username'] ?></div>
             <div class = 'account-type'>Account type: <?= $_SESSION['usertype'] ?></div>
         </div>
+        
         <form action = '<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>' method = 'POST' class = 'search-container'>
             <input type = 'text' name = 'txtsearch' placeholder = 'Search Account...' required>
             <button type = 'submit' name = 'btnsearch'><i class = 'fas fa-search'></i></button>
         </form>
+
         <div class = 'actions'>
             <a href = 'create-account.php' class = 'button create-btn icon-btn'><i class = 'fas fa-user-plus'></i> Create new account</a>
             <a href = 'logout.php' class = 'button logout-btn icon-btn'><i class = 'fas fa-sign-out-alt'></i> Logout</a>
@@ -190,8 +192,8 @@ if (!isset($_SESSION['username'])) {
                     echo "<td>" . $row['createdby'] . "</td>";
                     echo "<td>" . $row['datecreated'] . "</td>";
                     echo "<td>";
-                    echo "<a href='update-account.php?username=" . $row['username'] . "' class='button update-btn'>Update</a>";
-                    echo "<a href='#' onclick='confirmDelete(\"" . $row['username'] . "\")' class='button delete-btn'>Delete</a>";
+                    echo "<a href='update-account.php?username=" . $row['username'] . "' class='button update-btn'><i class='fas fa-edit'></i></a>";
+                    echo "<a href='#' onclick='confirmDelete(\"" . $row['username'] . "\")' class='button delete-btn'><i class='fas fa-trash'></i></a>";
                     echo "</td>";
                     echo "</tr>";
                 }

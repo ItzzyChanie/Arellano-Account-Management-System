@@ -73,6 +73,19 @@ if (isset($_POST["btnsubmit"])) {
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+        .password-container {
+            position: relative;
+        }
+        .password-container input[type="password"] {
+            padding-right: 40px;
+        }
+        .password-container .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -91,9 +104,12 @@ if (isset($_POST["btnsubmit"])) {
                     <input type = "text" name = "txtusername" class = "form-control" id = "txtusername" value = "<?php echo $account['username']; ?>" disabled>
                 </div>
  
-                <div class = "mb-3">
+                <div class = "mb-3 password-container">
                     <label for = "txtpassword" class = "form-label">Password</label>
-                    <input type = "password" name = "txtpassword" class = "form-control" id = "txtpassword" value = "<?php echo $account['password']; ?>" required>
+                    <div class="input-group">
+                        <input type = "password" name = "txtpassword" class = "form-control" id = "txtpassword" value = "<?php echo $account['password']; ?>" required>
+                        <span class="input-group-text toggle-password"><i class="fas fa-eye"></i></span>
+                    </div>
                 </div>
 
                 <div class = "mb-3">
@@ -131,6 +147,16 @@ if (isset($_POST["btnsubmit"])) {
 </div>
 
 <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+<script>
+    document.querySelector('.toggle-password').addEventListener('click', function (e) {
+        const passwordInput = document.getElementById('txtpassword');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+</script>
 
 </body>
 </html>
