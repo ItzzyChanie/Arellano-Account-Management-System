@@ -44,6 +44,7 @@ if (!isset($_SESSION['username'])) {
         .header img {
             height: 50px;
             margin-right: 20px;
+            cursor: pointer;
         }
         .container {
             background-color: #ffffff;
@@ -153,12 +154,15 @@ if (!isset($_SESSION['username'])) {
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        .Empty {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <div class = 'header'>
-        <img src = 'picture/Arellano_University_Logo.png' alt='Logo'>
+        <a href = "accounts-management.php"><img src = 'picture/Arellano_University_Logo.png' alt = 'Logo'></a>
         <div>
             <div class = 'welcome-text'>Welcome, <?= $_SESSION['username'] ?></div>
             <div class = 'account-type'>Account type: <?= $_SESSION['usertype'] ?></div>
@@ -199,7 +203,7 @@ if (!isset($_SESSION['username'])) {
                 }
                 echo "</table>";
             } else {
-                echo "No record/s found.";
+                echo "<div class='Empty'>No record/s found.</div>";
             }
         }
 
