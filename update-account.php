@@ -106,9 +106,10 @@ if (isset($_POST["btnsubmit"])) {
  
                 <div class = "mb-3 password-container">
                     <label for = "txtpassword" class = "form-label">Password</label>
-                    <div class="input-group">
+
+                    <div class = "input-group">
                         <input type = "password" name = "txtpassword" class = "form-control" id = "txtpassword" value = "<?php echo $account['password']; ?>" required>
-                        <span class="input-group-text toggle-password"><i class="fas fa-eye"></i></span>
+                        <span class = "input-group-text toggle-password"><i class = "fas fa-eye"></i></span>
                     </div>
                 </div>
 
@@ -117,9 +118,9 @@ if (isset($_POST["btnsubmit"])) {
             
                     <select name = "cmbtype" id = "cmbtype" class = "form-select" required>
                         <option value = "">--Select Account Type--</option>
-                        <option value = "ADMINISTRATOR" <?php if ($account['usertype'] == 'ADMINISTRATOR') echo 'selected'; ?>>Administrator</option>
-                        <option value = "TECHNICAL" <?php if ($account['usertype'] == 'TECHNICAL') echo 'selected'; ?>>Technical</option>
-                        <option value = "STAFF" <?php if ($account['usertype'] == 'STAFF') echo 'selected'; ?>>Staff</option>
+                        <option value = "ADMINISTRATOR">Administrator</option>
+                        <option value = "TECHNICAL">Technical</option>
+                        <option value = "STAFF">Staff</option>
                     </select>
                 </div>
 
@@ -127,12 +128,14 @@ if (isset($_POST["btnsubmit"])) {
                     <label class = "form-label">Status</label><br>
 
                     <div class = "form-check form-check-inline">
-                        <input class = "form-check-input" type = "radio" name = "rbstatus" id = "active" value = "ACTIVE" <?php if ($account['status'] == 'ACTIVE') echo 'checked'; ?>>
+                        <input class = "form-check-input" type = "radio" name = "rbstatus" id = "active" value = "ACTIVE"
+                        <?php if ($account['status'] == 'ACTIVE') echo 'checked'; ?>>
                         <label class = "form-check-label" for = "active">Active</label>
                     </div>
 
                     <div class = "form-check form-check-inline">
-                        <input class = "form-check-input" type = "radio" name = "rbstatus" id = "inactive" value = "INACTIVE" <?php if ($account['status'] == 'INACTIVE') echo 'checked'; ?>>
+                        <input class = "form-check-input" type = "radio" name = "rbstatus" id = "inactive" value = "INACTIVE"
+                        <?php if ($account['status'] == 'INACTIVE') echo 'checked'; ?>>
                         <label class = "form-check-label" for = "inactive">Inactive</label>
                     </div>
                 </div>
@@ -156,6 +159,9 @@ if (isset($_POST["btnsubmit"])) {
         passwordInput.setAttribute('type', type);
         this.querySelector('i').classList.toggle('fa-eye-slash');
     });
+
+    // Reset account type to default
+    document.getElementById('cmbtype').value = "";
 </script>
 
 </body>
