@@ -20,8 +20,7 @@ if (isset($_POST["btnsubmit"])) {
                 mysqli_stmt_bind_param($stmt, "ssssss", $date, $time, $action, $module, $_GET['username'], $_SESSION['username']);
 
                 if (mysqli_stmt_execute($stmt)) {
-                    echo "User account updated";
-                    header("location: accounts-management.php");
+                    echo "<script>alert('Account Updated'); window.location.href='accounts-management.php';</script>";
                     exit();
                 }
             } else {
@@ -118,9 +117,9 @@ if (isset($_POST["btnsubmit"])) {
             
                     <select name = "cmbtype" id = "cmbtype" class = "form-select" required>
                         <option value = "">--Select Account Type--</option>
-                        <option value = "ADMINISTRATOR">Administrator</option>
-                        <option value = "TECHNICAL">Technical</option>
-                        <option value = "STAFF">Staff</option>
+                        <option value = "ADMINISTRATOR" <?php if ($account['usertype'] == 'ADMINISTRATOR') echo 'selected'; ?>>Administrator</option>
+                        <option value = "TECHNICAL" <?php if ($account['usertype'] == 'TECHNICAL') echo 'selected'; ?>>Technical</option>
+                        <option value = "STAFF" <?php if ($account['usertype'] == 'STAFF') echo 'selected'; ?>>Staff</option>
                     </select>
                 </div>
 
@@ -160,8 +159,7 @@ if (isset($_POST["btnsubmit"])) {
         this.querySelector('i').classList.toggle('fa-eye-slash');
     });
 
-    // Reset account type to default
-    document.getElementById('cmbtype').value = "";
+    document.getElementById('cmbtype').value = "<?php echo $account['usertype']; ?>";
 </script>
 
 </body>

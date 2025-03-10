@@ -179,14 +179,15 @@ if (!isset($_SESSION['username'])) {
         </div>
     </div>
 
-    <div class = "list-title">List of Accounts</div>
+    <div class = "list-title">Accounts-Management</div>
 
     <div class = "container">
         <?php
         function buildtable($result) {
             if (mysqli_num_rows($result) > 0) {
                 echo "<table>";
-                echo "<tr><th>Username</th><th>Usertype</th><th>Status</th><th>Created by</th><th>Date created</th><th>Action</th></tr>";
+                echo "<tr><th>Username</th><th>Usertype</th><th>Status</th><th>Created by</th><th>Date created</th>
+                <th>Action</th></tr>";
 
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
@@ -196,8 +197,10 @@ if (!isset($_SESSION['username'])) {
                     echo "<td>" . $row['createdby'] . "</td>";
                     echo "<td>" . $row['datecreated'] . "</td>";
                     echo "<td>";
-                    echo "<a href='update-account.php?username=" . $row['username'] . "' class='button update-btn'><i class='fas fa-edit'></i></a>";
-                    echo "<a href='#' onclick='confirmDelete(\"" . $row['username'] . "\")' class='button delete-btn'><i class='fas fa-trash'></i></a>";
+                    echo "<a href='update-account.php?username=" . $row['username'] . "&usertype=" . $row['usertype'] . 
+                    "' class='button update-btn'><i class='fas fa-edit'></i></a>";
+                    echo "<a href='#' onclick='confirmDelete(\"" . $row['username'] . "\")' class='button delete-btn'>
+                    <i class='fas fa-trash'></i></a>";
                     echo "</td>";
                     echo "</tr>";
                 }
