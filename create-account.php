@@ -27,8 +27,7 @@ if (isset($_POST['btnsubmit']))
 
                     if (mysqli_stmt_execute($stmt))
                     {
-                        echo "<div class='alert alert-success'>User Account added.</div>";
-                        header("location: accounts-management.php");
+                        echo "<script>alert('Account created Successfully!'); window.location.href='accounts-management.php';</script>";
                         exit();
                     }
                 }
@@ -104,9 +103,9 @@ if (isset($_POST['btnsubmit']))
                 <div class = "mb-3 password-container">
                     <label for = "txtpassword" class = "form-label">Password</label>
 
-                    <div class="input-group">
+                    <div class = "input-group">
                         <input type = "password" name = "txtpassword" placeholder = "Enter Password" class = "form-control" id = "txtpassword" required>
-                        <span class="input-group-text toggle-password"><i class="fas fa-eye"></i></span>
+                        <span class = "input-group-text toggle-password"><i class="fas fa-eye"></i></span>
                     </div>
                 </div>
 

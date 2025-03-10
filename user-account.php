@@ -50,12 +50,20 @@
             <hr>
 
             <div class = "d-flex justify-content-center gap-2">
-                <a href = "logout.php" class="btn btn-danger">Logout</a>
+                <a href = "login.php" onclick="confirmLogout()" class="btn btn-danger">Logout</a>
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+    function confirmLogout() {
+        if (confirm("Are you sure you want to logout now?")) {
+            window.location.href = "logout.php";
+        }
+    }
+</script>
 
 <!-- Bootstrap JS (Optional) -->
 <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

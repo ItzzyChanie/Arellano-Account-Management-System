@@ -175,7 +175,7 @@ if (!isset($_SESSION['username'])) {
 
         <div class = 'actions'>
             <a href = 'create-account.php' class = 'button create-btn icon-btn'><i class = 'fas fa-user-plus'></i> Create new account</a>
-            <a href = 'logout.php' class = 'button logout-btn icon-btn'><i class = 'fas fa-sign-out-alt'></i> Logout</a>
+            <a href = 'login.php' onclick='confirmLogout()' class = 'button logout-btn icon-btn'><i class = 'fas fa-sign-out-alt'></i> Logout</a>
         </div>
     </div>
 
@@ -246,6 +246,12 @@ if (!isset($_SESSION['username'])) {
     function confirmDelete(username) {
         if (confirm("Are you sure you want to delete this account?")) {
             window.location.href = "delete-account.php?username=" + username;
+        }
+    }
+
+    function confirmLogout() {
+        if (confirm("Are you sure you want to logout now?")) {
+            window.location.href = "logout.php";
         }
     }
     </script>
