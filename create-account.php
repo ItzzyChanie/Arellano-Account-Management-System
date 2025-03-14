@@ -27,7 +27,8 @@ if (isset($_POST['btnsubmit']))
 
                     if (mysqli_stmt_execute($stmt))
                     {
-                        echo "<script>alert('Account created Successfully!'); window.location.href='accounts-management.php';</script>";
+                        echo "<script>alert('Account created Successfully!');</script>";
+                        echo "<script>window.location.href='accounts-management.php';</script>";
                         exit();
                     }
                 }
